@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html ng-app="walletApp" ng-controller="walletAppCtrl" >
+	<head>
+		<meta charset="UTF-8" >
+		<meta name="viewport" content="width=device-width" >
+		<title>Wallet App</title>
+		<link rel="stylesheet" type="text/css" href="/assets/css/main.css" >
+	</head>
+	<body>
+		<header id="page__header" class="col" >
+			<h1>My Wallet</h1>
+			<nav app-mainmenu id="mainmenu" >
+			</nav>			
+		</header>
+
+		<article class="col">
+			<section ng-view>
+			</section>
+		</article>
+
+
+		<script src="/assets/js/lib/angular/angular.js"></script>
+		<script src="/assets/js/lib/angular-route/angular-route.js"></script>
+
+		<script src="/assets/js/app.js"></script>
+		<script src="/assets/js/config.js"></script>
+		<script src="/assets/js/controllers.js"></script>
+		<script src="/assets/js/directives.js"></script>
+		<script src="/assets/js/filters.js"></script>
+
+	</body>
+</html>
