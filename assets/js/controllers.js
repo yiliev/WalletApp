@@ -27,6 +27,7 @@ angular.module('walletApp.controllers', ['ngRoute'])
 
 	.controller('walletCtrl', ['$scope', 'eventManager', function ($scope, eventManager) {
 
+
 		$scope.resetWallet = function () {
 			$scope.walletItems = [];
 			localStorage["walletItems"] = [];			
@@ -34,18 +35,19 @@ angular.module('walletApp.controllers', ['ngRoute'])
 		};
 
 		$scope.recalcTotal = function () {
-			var sign = 1;
-			for (var i=0; i<$scope.walletItems.length; i++) {
-				sign = $scope.walletItems[i].action == "add" ? 1 : -1 ;
-				$scope.walletTotal += sign * $scope.walletItems[i].value;
+			var a = $scope.walletItems;
+			for (var i=0; i<a.length; i++) {
+				
+				$scope.walletTotal += (a[i].action == "add" ? 1 : -1) * a[i].value;
 			}
+			
 		};
 
 		$scope.pushInWalletItems = function (action) {			
 			$scope.walletItems.push({
-				"date": Date(),
+				"date": new Date(Date()).toISOString(),
 				"action": action,
-				"value": $scope.submitItemValue 
+				"value": parseFloat($scope.submitItemValue)
 			});
 			localStorage.setItem("walletItems", JSON.stringify($scope.walletItems));
 
@@ -56,7 +58,7 @@ angular.module('walletApp.controllers', ['ngRoute'])
 		$scope.validateInput = function () {
 			var val = $scope.submitItemValue;		
 
-			if (val >=0 && !isNaN(val) && val !== '') { 
+			if (val >0 && !isNaN(val) && val !== '') { 
 				return true;
 			}			
 
@@ -66,25 +68,29 @@ angular.module('walletApp.controllers', ['ngRoute'])
 		$scope.submit = function (action) {
 			if ($scope.validateInput()) {
 				if (action == "remove"){
-					if ($scope.submitItemValue <= $scope.walletTotal) {
+					if (parseFloat($scope.submitItemValue) <= $scope.walletTotal) {
 						$scope.pushInWalletItems(action);
 					}
 					else {
-						console.log('action not possible');
+						alert('action not possible');
 					}
 				}
 				else {
 					$scope.pushInWalletItems(action);
 				}
+			}
+			else {
+				alert('incorrect input');
 			}			
 		};
   	
-	    $scope.$on('resetWallet', function() {
+	    $scope.$on("resetWallet", function() {
 	        $scope.resetWallet();
 	    });
 
+
 		// Init
-		if (localStorage["walletItems"] != undefined && localStorage["walletItems"].lenght) {
+		if (localStorage["walletItems"] != undefined && localStorage["walletItems"].length != 0) {
 			$scope.walletItems = JSON.parse(localStorage.getItem("walletItems"));
 		}
 		else {
@@ -92,8 +98,9 @@ angular.module('walletApp.controllers', ['ngRoute'])
 		}	
  
 
+		$scope.walletTotal = 0;
+
 		if ($scope.walletItems.length) {
-			$scope.walletTotal = 0;
 			$scope.recalcTotal();
 		}
 		else {

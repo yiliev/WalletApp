@@ -5,8 +5,9 @@
 </form>
 
 <ul id="wallet__list">
-	<li ng-repeat="item in walletItems track by $index">
-		{{item.value}}
+	<li ng-repeat="item in walletItems track by $index" class="wallet__item--{{item.action}}">	
+		{{item.date | dateToISO | date:'dd/MMM/yy HH:MM:ss'}}
+		{{item.value}}		
 	</li>
 </ul>
 
