@@ -83,10 +83,10 @@ angular.module('walletApp.controllers', ['ngRoute'])
 				alert('incorrect input');
 			}			
 		};
-  	
-	    $scope.$on("resetWallet", function() {
-	        $scope.resetWallet();
-	    });
+	
+		$scope.$on("resetWallet", function() {
+			$scope.resetWallet();
+		});
 
 
 		// Init
@@ -106,6 +106,23 @@ angular.module('walletApp.controllers', ['ngRoute'])
 		else {
 			console.log('no items');
 		}
+
+
+		// currency selector
+		$scope.availableCurrencies = [
+			{ name:"btc", symbol: "B"},
+			{ name:"jpy", symbol: "¥"},
+			{ name:"usd", symbol: "$"},
+			{ name:"eur", symbol: "€"},
+			{ name:"gbp", symbol: "£"},
+			{ name:"ils", symbol: "₪"},
+			{ name:"inr", symbol: "र"},
+			{ name:"krw", symbol: "₩"},
+			{ name:"rub", symbol: "руб"},
+			{ name:"try", symbol: "₺" }
+		];
+
+
 
 	}])
 

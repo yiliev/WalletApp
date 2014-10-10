@@ -7,8 +7,12 @@
 <ul id="wallet__list">
 	<li ng-repeat="item in walletItems track by $index" class="wallet__item--{{item.action}}">	
 		{{item.date | dateToISO | date:'dd/MMM/yy HH:MM:ss'}}
+		{{currencySelector.symbol}}
 		{{item.value}}		
 	</li>
 </ul>
 
-<h1 ng-show="walletTotal != undefined" >Total: {{walletTotal}}</h1>
+<strong ng-show="walletTotal != undefined" >Total: <span class="fa fa-{{selectedCurrency}} fa-{{currencySelector.name | lowercase}}"></span>  {{walletTotal}}</strong>
+
+<select id="currencySelector" ng-model="currencySelector"  ng-options="currency.name | uppercase for currency in availableCurrencies"> 
+</select>

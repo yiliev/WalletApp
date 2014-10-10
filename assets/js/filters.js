@@ -22,6 +22,6 @@ angular.module('walletApp.filters', [])
 		return function(input) {
 			return new Date(input).toISOString();
 		};
-	}) 
+	})  
 
 	;
