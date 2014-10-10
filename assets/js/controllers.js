@@ -1,9 +1,5 @@
 angular.module('walletApp.controllers', ['ngRoute'])
-
-	.controller('walletAppCtrl', ['$scope', 'eventManager', function($scope, eventManager) {
-
-	}])
-
+ 
 	.controller('mainmenuCtrl', ['$scope', 'eventManager', function($scope, eventManager) {
 
 		$scope.resetWallet = function () {
