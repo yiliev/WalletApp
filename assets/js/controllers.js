@@ -54,7 +54,13 @@ angular.module('walletApp.controllers', ['ngRoute'])
 		};
 
 		$scope.validateInput = function () {
-			return true;
+			var val = $scope.submitItemValue;		
+
+			if (val >=0 && !isNaN(val) && val !== '') { 
+				return true;
+			}			
+
+			return false;	
 		};
 
 		$scope.submit = function (action) {
@@ -93,9 +99,6 @@ angular.module('walletApp.controllers', ['ngRoute'])
 		else {
 			console.log('no items');
 		}
-
-
-
 
 	}])
 
