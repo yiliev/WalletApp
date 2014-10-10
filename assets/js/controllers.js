@@ -1,14 +1,14 @@
 angular.module('walletApp.controllers', ['ngRoute'])
 
-	.controller('walletAppCtrl', ['$scope', function($scope) {
+	.controller('walletAppCtrl', ['$scope', 'eventManager', function($scope, eventManager) {
 
 	}])
 
-	.controller('mainmenuCtrl', ['$scope', function($scope) {
+	.controller('mainmenuCtrl', ['$scope', 'eventManager', function($scope, eventManager) {
 
 		$scope.resetWallet = function () {
-			console.log('reset wallet');
-		}
+			eventManager.broadcastItem('resetWallet');
+		};
 
 
 		// Main menu show hide
@@ -25,7 +25,13 @@ angular.module('walletApp.controllers', ['ngRoute'])
 
 	}])
 
-	.controller('walletCtrl', ['$scope', function ($scope) {
+	.controller('walletCtrl', ['$scope', 'eventManager', function ($scope, eventManager) {
+
+		$scope.resetWallet = function () {
+			$scope.walletItems = [];
+			localStorage["walletItems"] = [];			
+			$scope.recalcTotal();
+		};
 
 		$scope.recalcTotal = function () {
 			var sign = 1;
@@ -66,21 +72,22 @@ angular.module('walletApp.controllers', ['ngRoute'])
 				}
 			}			
 		};
-
+  	
+	    $scope.$on('resetWallet', function() {
+	        $scope.resetWallet();
+	    });
 
 		// Init
-		if (localStorage["walletItems"] != undefined) {
+		if (localStorage["walletItems"] != undefined && localStorage["walletItems"].lenght) {
 			$scope.walletItems = JSON.parse(localStorage.getItem("walletItems"));
 		}
 		else {
-			$scope.walletItems = [];
-			localStorage["walletItems"] = [];
+			$scope.resetWallet();
 		}	
  
 
 		if ($scope.walletItems.length) {
 			$scope.walletTotal = 0;
-			debugger;
 			$scope.recalcTotal();
 		}
 		else {

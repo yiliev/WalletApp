@@ -1,6 +1,6 @@
 angular.module('walletApp.directives', [])	
 
-	.directive('appMainmenu', function () {
+	.directive('appMainmenu', function (eventManager) {
 		return {
 			restrict: 'A',
 			controller: 'mainmenuCtrl',
@@ -8,7 +8,7 @@ angular.module('walletApp.directives', [])
 		}			
 	})
 
-	.directive('appWallet', function () {
+	.directive('appWallet', function (eventManager) {
 		return {
 			restrict: 'A',
 			controller: 'walletCtrl',
